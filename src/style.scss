@@ -1,0 +1,80 @@
+body {
+  font-family: "Roboto", sans-serif;
+  color: rgb(10%, 10%, 10%);
+  background: darken(white, 10%);
+  margin: 50px;
+}
+
+.searchBarButton{
+
+}
+
+input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  margin-top: 9px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  width: 10%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  margin-top: 9px;
+  border: 0;
+  cursor: grab;
+  border-radius: 5px;
+}
+
+.NoteBody{
+  display: flex;
+  background: #64DFF8;
+  flex-direction: column;
+  justify-content: space-between;
+  list-style: none;
+  border: 7px;
+  border-color: red;
+  border-style: solid;
+  height: 300px;
+  width: 250px;
+}
+
+.NoteTop{
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: space-between;
+
+}
+.NoteCenter{
+  display: flex;
+  justify-content: center;
+}
+
+.NoteBottom{
+  height: 10px;
+  list-style: none;
+}
+
+.topBoxLeft{
+  list-style: none;
+  flex-direction: row;
+  display: flex;
+}
+
+.topBoxRight{
+  flex-direction: row;
+  justify-content: flex-end;
+
+}
+
+.noteMD{
+  justify-content: center;
+}
