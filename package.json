@@ -55,6 +55,7 @@
     "react-router": "^2.5.2",
     "react-textarea-autosize": "^4.0.5",
     "redux-thunk": "^2.1.0",
+    "surge": "^0.18.0",
     "twitter-node-client": "0.0.6",
     "uuid": "^3.0.1"
   }
