@@ -4,9 +4,11 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified.\"",
     "start": "node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "WEBPACK_ENV=production node_modules/.bin/webpack --optimize-minimize --progress --color",
-    "deploy": "npm run build; surge -p . -d qss30final.surge.sh"
+    "deploy": "npm run build; surge -p . -d qss30final.surge.sh",
+    "travissh-deploy": "git add . && git commit -am 'autopush with surge and travis' && git push"
   },
   "repository": {
     "type": "git",
