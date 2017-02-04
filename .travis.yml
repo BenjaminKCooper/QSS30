@@ -2,4 +2,9 @@ language: node_js
 node_js:
   - "0.12"
 after_success:
-  - WEBPACK_ENV=production node_modules/.bin/webpack --optimize-minimize --progress --color; surge --p . --d qss30final.surge.sh
+  - npm run build
+
+deploy:
+  provider: surge
+  project: .
+  domain: qss30.surge.sh
