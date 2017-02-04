@@ -73,6 +73,7 @@ class App extends Component {
         <div>{process.env.TEST}</div>
         <div>{process.env.TEST_TWO}</div>
         <div>{process.env.TEST_THREE}</div>
+        <div>{process.env.PLZWORK}</div>
         <SearchBar onButtonPress={this.createNode} />
         <DashInstance month={1} day={14} year={2017} />
       </div>
