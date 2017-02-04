@@ -8,7 +8,7 @@
     "start": "node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "WEBPACK_ENV=production node_modules/.bin/webpack --optimize-minimize --progress --color",
     "deploy": "npm run build; surge -p . -d qss30final.surge.sh",
-    "travissh-deploy": "git add . && git commit -am 'autopush with surge and travis' && git push"
+    "travis-deploy": "git add . && git commit -am 'autopush with surge and travis' && git push"
   },
   "repository": {
     "type": "git",
@@ -45,10 +45,11 @@
   },
   "dependencies": {
     "axios": "^0.13.1",
-    "dotenv": "^4.0.0",
+    "fs": "0.0.1-security",
     "immutable": "^3.8.1",
     "marked": "^0.3.5",
     "money": "^0.2.0",
+    "rc-slider": "^6.0.1",
     "react": "^15.2.1",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.2.1",

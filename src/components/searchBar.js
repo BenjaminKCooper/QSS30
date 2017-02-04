@@ -7,6 +7,7 @@ class SearchBar extends Component {
     this.state = { searchterm: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onButtonPress = this.onButtonPress.bind(this);
+
   }
 
   onInputChange(event) {
@@ -21,7 +22,6 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="searchBar">
-        <div>WORKING DEPLOY WOW</div>
         <input className="searchBarInput" onChange={this.onInputChange} value={this.state.searchterm} />
         <button className="searchBarButton" type="submit" onClick={this.onButtonPress} value={this.state.searchterm} >Create</button>
       </div>
