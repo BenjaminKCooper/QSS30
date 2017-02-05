@@ -4,15 +4,23 @@ import SearchBar from './searchBar';
 import Note from './note';
 import DashInstance from './dashInstance';
 
+//Callback functions
+var error = function (err, response, body) {
+       console.log('ERROR [%s]', err);
+   };
+var success = function (data) {
+      //  console.log('Data [%s]', data);
+      let all_tweets = JSON.parse(data);
+      for(var tweet in all_tweets.statuses) {
+        console.log(all_tweets.statuses[tweet]);
+      }
+   };
 
-// var Twitter = require('twitter-node-client').Twitter;
 
 
 
 
-
-
-const uuid = require('uuid'); // I learned how to implement a uuid from : https://www.npmjs.com/package/uuid
+const uuid = require('uuid'); //
 
 
 // example class based component (smart component)
@@ -66,14 +74,15 @@ class App extends Component {
   }
 
 
+
+
+
+
+
   render() {
     console.log(window.innerWidth)
     return (
       <div>
-        <div>{process.env.TEST}</div>
-        <div>{process.env.TEST_TWO}</div>
-        <div>{process.env.TEST_THREE}</div>
-        <div>{process.env.PLZWORK}</div>
         <SearchBar onButtonPress={this.createNode} />
         <DashInstance month={1} day={14} year={2017} />
       </div>

@@ -3,3 +3,6 @@ node_modules
 .npm
 build
 .env
+
+twitter_config
+twitter_data.R

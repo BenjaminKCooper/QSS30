@@ -60,6 +60,7 @@ class DashInstance extends Component {
     return (
 
         <div>
+
           <div>{this.props.day}</div>
         </div>
     ); }

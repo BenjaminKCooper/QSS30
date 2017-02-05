@@ -2,10 +2,6 @@ language: node_js
 node_js:
   - "0.12"
 
-env:
-  global:
-    -PLZWORK: 1
-    
 after_success:
   - npm run build
   - surge --project . --domain http://qss30final.surge.sh
