@@ -13,3 +13,7 @@ libraries:
 
 
 - http://www.csvjson.com/csv2json
+
+
+- http://elections.huffingtonpost.com/pollster/api/v2
+- http://elections.huffingtonpost.com/pollster
