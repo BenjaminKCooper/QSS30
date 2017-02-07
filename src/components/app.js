@@ -4,6 +4,10 @@ import Immutable from 'immutable';
 import SearchBar from './searchBar';
 import Note from './note';
 import DashInstance from './dashInstance';
+import GraphView from './graphView';
+import update from 'react-addons-update';
+import { Button, Navbar, Nav, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
+
 
 
 
@@ -33,6 +37,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dashboardView: false,
       dataSources: Immutable.fromJS({
         china : {
           fileName: "china_current.json",
@@ -98,83 +103,34 @@ class App extends Component {
     this.updatePostion = this.updatePostion.bind(this);
     this.editChangeText = this.editChangeText.bind(this);
     this.getData = this.getData.bind(this);
+    this.switchView = this.switchView.bind(this);
 
 
-    // this.getData();
+    this.getData();
 
-
-
-  }
-
-
-  componentDidMount(){
-    console.log('mounted')
-
-    console.log(this.state.dataSources)
-
-
-    var _this = this;
-
-    this.state.dataSources.entrySeq().forEach(function(key){
-
-      _this.setState({
-        dataSources: this.state.dataSources.update(key, value => {
-          console.log(value)
-        }))
-      }
-    })
-
-
-
-    // var _this = this;
-    //
-    // for (var key in this.state.dataSources) {
-    //
-    //   axios.get(("../../data/" + this.state.dataSources[key].fileName)).then(function(data) {
-    //
-    //
-    //   })
-    //
-    //
-    // }
-
-
-    // axios.get("../../data/trump_current.json").then(function(result) {
-    //   _this.setState({
-    //     twitterData: {result}
-    //   })
-    // });
-
-
-
-
-
-
-  }
-
-  componentWillUnmount(){
-    console.log("COMPONENTWILLUNMOUNT!")
-    // this.serverRequest.abort();
   }
 
 
   getData(){
-    console.log('getting data')
+    console.log('mounted')
 
 
-    axios.get("../../data/trump_current.json").then(function(result){
-      console.log(result.data);
-      var test = result.data;
-      this.updateData(test);
 
 
-    });
-    console.log(2)
+    this.state.dataSources.entrySeq().forEach((source)=>{
 
-
-    console.log(this.state.twitterData)
-
+      axios.get(("../../data/" + source[1].get("fileName"))).then((data) => {
+        this.setState({
+          dataSources: this.state.dataSources.setIn([source[0],'jsonData'], data)
+        })
+      })
+    })
   }
+
+
+
+
+
 
 
   onDeleteClick(id) {
@@ -185,6 +141,7 @@ class App extends Component {
 
 
   createNode(text) {
+    console.log(this.state.dataSources.getIn(['china','json']))
 
     const id = uuid.v1();
     const note = {
@@ -214,18 +171,38 @@ class App extends Component {
     });
   }
 
+  renderMain(){
+    if (this.state.dashboardView) {
+      return <DashInstance month={1} day={14} year={2017} />
+    }
+    else {
+      return <GraphView />
+    }
 
+  }
 
+  switchView(){
+    this.setState({
+      dashboardView: !this.state.dashboardView,
+    })
 
-
+  }
 
 
   render() {
-    console.log(window.innerWidth)
+    console.log(this.state.dashboardView)
     return (
       <div>
-        <SearchBar onButtonPress={this.createNode} />
-        <DashInstance month={1} day={14} year={2017} />
+        <Button onClick={this.switchView}>Switch View</Button>
+        {/* <SearchBar onButtonPress={this.createNode} /> */}
+
+        {this.renderMain()}
+
+
+
+
+
+
       </div>
     );
   }
