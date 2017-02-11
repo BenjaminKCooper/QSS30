@@ -21,3 +21,13 @@ libraries:
 
 
 - https://www.federalregister.gov/reader-aids/developer-resources
+
+
+
+Outside Lit:
+  - some insite
+    - rather than describing the tool, set up the question, try to answer it in my tool, and spend the paper bounching off ideas from the course themes/ relates to the tool
+
+    ideas:
+      - when
+      - TFIDF term freequenc inverse document freequence method in a corpus (LOOK UP THIS)

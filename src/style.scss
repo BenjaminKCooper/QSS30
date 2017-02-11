@@ -2,32 +2,10 @@ body {
   font-family: "Roboto", sans-serif;
   color: rgb(10%, 10%, 10%);
   background: darken(white, 10%);
-  // background: red;
-  margin: 50px;
-}
-
-.searchBarButton{
-
-}
-
-input{
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  margin-top: 9px;
-  border: 0;
-  border-radius: 5px;
-}
-
-.searchBar {
-
-  margin: 10%;
-  display: flex;
-  justify-content: center;
+  margin: auto;
 }
 
 button {
-  width: 10%;
   padding: 12px 20px;
   margin: 8px 0;
   margin-top: 9px;
@@ -36,48 +14,72 @@ button {
   border-radius: 5px;
 }
 
-.NoteBody{
+.mainApp{
+  height: inherit;
   display: flex;
-  background: #64DFF8;
+  background: green;
   flex-direction: column;
-  justify-content: space-between;
-  list-style: none;
-  border: 7px;
-  border-color: red;
-  border-style: solid;
-  height: 300px;
-  width: 250px;
+  justify-content: center;
+  // justify-content: space-between;
 }
 
-.NoteTop{
+.topBarHome{
+  display: flex;
+  background: red;
+  justify-content: space-around;
+}
+
+.mainPageCenter{
   display: flex;
   flex-direction: row;
-  list-style: none;
-  justify-content: space-between;
-
+  justify-content: center;
 }
-.NoteCenter{
+// http://www.w3schools.com/css/css_link.asp
+.postContainer{
   display: flex;
+  flex-direction: row;
+  background: blue;
+  padding: 20px;
+  border-radius: 4px;
+  margin: 30px;
+
+  text-decoration: none;
   justify-content: center;
 }
 
-.NoteBottom{
-  height: 10px;
-  list-style: none;
+.linkText{
+  color: white;
+  text-decoration: none;
+  font-size: 38px;
 }
 
-.topBoxLeft{
-  list-style: none;
-  flex-direction: row;
-  display: flex;
-}
-
-.topBoxRight{
-  flex-direction: row;
+.bottomBar{
+  background: purple;
   justify-content: flex-end;
 
 }
+.test{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
 
-.noteMD{
-  justify-content: center;
+.navBarContainer {
+  justify-content: flex-start;
+}
+
+
+.editMain{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.subEditArea{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 2px;
+  margin: 30px;
 }
