@@ -6,6 +6,11 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import thunk from 'redux-thunk';
 
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
+
 import './style.scss';
 
 import reducers from './reducers';

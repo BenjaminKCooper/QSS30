@@ -31,3 +31,33 @@ Outside Lit:
     ideas:
       - when
       - TFIDF term freequenc inverse document freequence method in a corpus (LOOK UP THIS)
+
+
+
+
+
+
+
+
+
+            <V.VictoryChart
+        domainPadding={{x: 40}}
+      >
+        <V.VictoryLine
+        data={this.props.data.dowJones}
+        x="Date"
+        y="Value"
+      />
+        <V.VictoryAxis
+          label="Date"
+          style={{
+            axisLabel: { padding: 30 }
+          }}
+        />
+        <V.VictoryAxis dependentAxis
+          label="Value"
+          style={{
+            axisLabel: { padding: 40 }
+          }}
+        />
+      </V.VictoryChart>

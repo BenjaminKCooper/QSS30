@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {PulseLoader} from 'halogen';
 // import Welcome from './welcome';
 // import NavBar from './navbar';
 import { Link } from 'react-router';
 import { fetchchina, fetchdowjones, fetcheuro, fetchfox, fetchmexico, fetchnasdaq, fetchnpr, fetchnyt, fetchpound, fetchtrump, fetchwsj } from '../actions/index';
 // example class based component (smart component)
+
+
+import { LineChart, Line } from 'recharts';
+
+
+import * as V from 'victory';
+
 class Homepage extends Component {
   constructor(props) {
     super(props);
@@ -26,23 +34,42 @@ class Homepage extends Component {
     this.props.fetchpound();
     this.props.fetchtrump();
     this.props.fetchwsj();
-
-
   }
 
 
   renderPosts() {
-    console.log(this.props.data)
+
     // return this.props.posts.map((post) => {
     //   return <Link className="postContainer"to={`/posts/${post.id}`} key={post.id}><div className="linkText">{post.title} </div></Link>;
     // });
   }
 
+
+renderMain() {
+  if (this.props.data.trump.length != 0) {
+
+    return(
+
+      this.props.data.trump.map((tweet)=>{
+        return(<li>{tweet.text}</li>)
+
+          })
+
+
+
+    )
+  } else {
+    return (<div><PulseLoader></PulseLoader></div>);
+  }
+
+}
+
+
   render() {
     return (
       <div className="mainPageCenter">
         <div >
-          {this.renderPosts()}
+          {this.renderMain()}
         </div>
       </div >
     );
