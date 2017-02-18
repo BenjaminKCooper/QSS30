@@ -12,13 +12,13 @@ class App extends Component {
   render() {
     return (
     <div className="test">
-      <div className="navBarContainer">
-        <NavBar />
-      </div>
-      <div className="mainApp">
-        {this.props.children}
-      </div>
-      <div className="bottomBar" />
+        <div className="navBarContainer">
+          <NavBar />
+        </div>
+        <div className="mainApp">
+          {this.props.children}
+        </div>
+        <div className="bottomBar" />
     </div>
   ); }
 }

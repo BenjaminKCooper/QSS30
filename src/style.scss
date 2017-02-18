@@ -5,6 +5,12 @@ body {
   margin: auto;
 }
 
+
+#mainContent{
+  display: flex;
+  flex-direction: column;
+}
+
 button {
   padding: 12px 20px;
   margin: 8px 0;
@@ -17,7 +23,6 @@ button {
 .mainApp{
   height: inherit;
   display: flex;
-  background: green;
   flex-direction: column;
   justify-content: center;
   // justify-content: space-between;

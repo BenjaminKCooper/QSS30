@@ -35,6 +35,57 @@ Outside Lit:
 
 
 
+-----
+      <V.VictoryLine
+      data={this.props.data.china}
+      style={{
+        data: {stroke: "#e95f46"}
+      }}
+
+      x={(data) => new Date(data.DATE)}
+      y="RATE"
+      />
+
+      <V.VictoryLine
+      data={this.props.data.euro}
+      style={{
+      data: {stroke: "#e95f46"}
+      }}
+
+      x={(data) => new Date(data.DATE)}
+      y="RATE"
+      />
+
+      <V.VictoryLine
+      data={this.props.data.pound}
+      style={{
+      data: {stroke: "#e95f46"}
+      }}
+
+      x={(data) => new Date(data.DATE)}
+      y="RATE"
+      />
+
+      <V.VictoryLine
+      data={this.props.data.mexico}
+      style={{
+      data: {stroke: "#e95f46"}
+      }}
+
+      x={(data) => new Date(data.DATE)}
+      y="RATE"
+      />
+
+------
+
+
+
+
+
+
+
+
+
 
 
 

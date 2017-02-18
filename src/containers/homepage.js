@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {PulseLoader} from 'halogen';
 // import Welcome from './welcome';
 // import NavBar from './navbar';
 import { Link } from 'react-router';
+import QuickTweet from '../components/quickTweetView'
 import { fetchchina, fetchdowjones, fetcheuro, fetchfox, fetchmexico, fetchnasdaq, fetchnpr, fetchnyt, fetchpound, fetchtrump, fetchwsj } from '../actions/index';
 // example class based component (smart component)
 
+import DataGraph from '../components/graph'
 
-import { LineChart, Line } from 'recharts';
 
+import {Chip, Slider, MuiThemeProvider, CircularProgress} from 'material-ui';
 
-import * as V from 'victory';
 
 class Homepage extends Component {
   constructor(props) {
     super(props);
 
     // init component state here
-    this.state = {};
+    this.state = {tempSliderVal:0, finalSliderVal:0};
     // this.renderPosts = this.renderPosts.bind(this);
+    this.onSliderMove = this.onSliderMove.bind(this);
+    this.onSlideStop = this.onSlideStop.bind(this);
   }
 
   componentWillMount() {
@@ -45,21 +47,38 @@ class Homepage extends Component {
   }
 
 
+onSlideStop(event) {
+  this.setState({finalSliderVal: this.state.tempSliderVal});
+}
+
+onSliderMove(event, value) {
+
+  this.setState({tempSliderVal: value});
+
+}
+
 renderMain() {
-  if (this.props.data.trump.length != 0) {
+  if (this.props.data.trump.length > 0) {
 
     return(
+<div>
+    <DataGraph marker={this.props.data.trump[this.state.tempSliderVal].created}/>
 
-      this.props.data.trump.map((tweet)=>{
-        return(<li>{tweet.text}</li>)
+  <MuiThemeProvider>
+    <Chip>{"Tweet Date: "+this.props.data.trump[this.state.tempSliderVal].created}</Chip>
+  </MuiThemeProvider>
+  <MuiThemeProvider>
+  <Slider style={{width: 500}} axis="x-reverse" value={this.state.tempSliderVal} onDragStop={this.onSlideStop} onChange={this.onSliderMove} defaultValue={0} max={this.props.data.trump.length - 1} min={0} step={1} />
+  </MuiThemeProvider>
+</div>
 
-          })
 
 
+)
 
-    )
+
   } else {
-    return (<div><PulseLoader></PulseLoader></div>);
+    return (<MuiThemeProvider><CircularProgress /></MuiThemeProvider>);
   }
 
 }
@@ -68,10 +87,10 @@ renderMain() {
   render() {
     return (
       <div className="mainPageCenter">
-        <div >
+        <div id="mainContent">
           {this.renderMain()}
         </div>
-      </div >
+      </div>
     );
   }
 }

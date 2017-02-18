@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router';
 
+import AppBar from 'material-ui/AppBar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+
 // example class based component (smart component)
 class NavBar extends Component {
   constructor(props) {
@@ -12,8 +16,9 @@ class NavBar extends Component {
   render() {
     return (
       <div className="topBarHome">
-        <Link to="/">BenBlog</Link>
-        <Link to="posts/new">new post</Link>
+        <MuiThemeProvider>
+          <AppBar />
+        </MuiThemeProvider>
       </div>
     );
   }
