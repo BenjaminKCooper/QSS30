@@ -10,6 +10,8 @@ import { fetchchina, fetchdowjones, fetcheuro, fetchfox, fetchmexico, fetchnasda
 import DataGraph from '../components/graph'
 import CustomGraph from '../components/customGraph'
 
+import Dashboard from '../components/dashboardView'
+
 
 import {Chip, Slider, MuiThemeProvider, CircularProgress, Toggle, RaisedButton} from 'material-ui';
 
@@ -19,10 +21,10 @@ class Homepage extends Component {
     super(props);
 
     // init component state here
-    this.state = {tempSliderVal:0, finalSliderVal:0, viewToggle:"Graph"};
+    this.state = {tempSliderVal:0, finalSliderVal:0, viewToggle:"Dashboard"};
     // this.renderPosts = this.renderPosts.bind(this);
     this.onSliderMove = this.onSliderMove.bind(this);
-    this.onSlideStop = this.onSlideStop.bind(this);
+    this.onButtonClick = this.onButtonClick.bind(this);
   }
 
   componentWillMount() {
@@ -49,8 +51,12 @@ class Homepage extends Component {
   }
 
 
-onSlideStop(event) {
-  this.setState({finalSliderVal: this.state.tempSliderVal});
+onButtonClick(event) {
+  if (this.state.viewToggle == "Graph") {
+    this.setState({viewToggle:"Dashboard"})
+  } else {
+    this.setState({viewToggle:"Graph"})
+  }
 }
 
 onSliderMove(event, value) {
@@ -62,23 +68,50 @@ onSliderMove(event, value) {
 renderMain() {
   if (this.props.data.trump.length > 0) {
 
-    return(
-<div>
-  <MuiThemeProvider>
-    <RaisedButton label={this.state.viewToggle} />
-  </MuiThemeProvider>
-    <CustomGraph marker={this.props.data.trump[this.state.tempSliderVal].created} />
-  <MuiThemeProvider>
-    <Chip>{"Tweet Date: "+this.props.data.trump[this.state.tempSliderVal].created}</Chip>
-  </MuiThemeProvider>
-  <MuiThemeProvider>
-  <Slider style={{width: 500}} axis="x-reverse" value={this.state.tempSliderVal} onDragStop={this.onSlideStop} onChange={this.onSliderMove} defaultValue={0} max={this.props.data.trump.length - 1} min={0} step={1} />
-  </MuiThemeProvider>
-</div>
+    if (this.state.viewToggle == "Graph") {
+      return(
+  <div id="graphContainer">
+    <MuiThemeProvider >
+      <RaisedButton onTouchTap={this.onButtonClick} label={this.state.viewToggle} />
+    </MuiThemeProvider>
+      <CustomGraph marker={this.props.data.trump[this.state.tempSliderVal].created} />
+    <MuiThemeProvider>
+      <Chip>{"Tweet Date: "+this.props.data.trump[this.state.tempSliderVal].created}</Chip>
+    </MuiThemeProvider>
+    <MuiThemeProvider>
+    <Slider style={{width: 500}} axis="x-reverse" value={this.state.tempSliderVal} onDragStop={this.onSlideStop} onChange={this.onSliderMove} defaultValue={0} max={this.props.data.trump.length - 1} min={0} step={1} />
+    </MuiThemeProvider>
+  </div>
 
 
 
-)
+  )
+
+    } else {
+
+      return(
+        <div id="dashboardContainer">
+
+          <MuiThemeProvider >
+            <RaisedButton onTouchTap={this.onButtonClick} label={this.state.viewToggle} />
+          </MuiThemeProvider>
+          <Dashboard index={this.state.tempSliderVal}/>
+
+          <MuiThemeProvider>
+            <Chip>{"Tweet Date: "+this.props.data.trump[this.state.tempSliderVal].created}</Chip>
+          </MuiThemeProvider>
+          {/* <MuiThemeProvider>
+          <Slider style={{width: 500}} axis="x-reverse" value={this.state.tempSliderVal} onDragStop={this.onSlideStop} onChange={this.onSliderMove} defaultValue={0} max={this.props.data.trump.length - 1} min={0} step={1} />
+          </MuiThemeProvider> */}
+
+
+
+
+      </div>)
+
+    }
+
+
 
 
   } else {
@@ -91,10 +124,7 @@ renderMain() {
   render() {
     return (
       <div className="mainPageCenter">
-
-        <div id="mainContent">
           {this.renderMain()}
-        </div>
       </div>
     );
   }
@@ -103,6 +133,7 @@ renderMain() {
 const mapStateToProps = (state) => (
   {
     data: state.data,
+    tweets: state.tweets,
   }
 );
 

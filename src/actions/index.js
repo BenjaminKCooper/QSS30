@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const ROOT_URL = 'https://cs52-blog.herokuapp.com/api';
-const API_KEY = '?key=benjamin_cooper';
+import googleTrends from 'google-trends-api';
 import { browserHistory } from 'react-router';
 
 
@@ -18,12 +16,30 @@ export const ActionTypes = {
   FETCH_POUND: 'FETCH_POUND',
   FETCH_TRUMP: 'FETCH_TRUMP',
   FETCH_WSJ: 'FETCH_WSJ',
+  FETCH_GOOGLETRENDS:'FETCH_GOOGLETRENDS',
 };
 
 
 
 
 
+export function fetchGoogleTrends(phrase, date){
+  var nextDate = new Date(date);
+  nextDate.setDate(nextDate.getDate() + 1)
+
+  var prevDay = new Date(date);
+  prevDay.setDate(prevDay.getDate() - 1)
+
+  var currentDate = new Date(date);
+
+
+  return (dispatch) => {
+    googleTrends.interestOverTime({keyword: phrase, startTime: prevDay, endTime: nextDate}).then(response => {
+      dispatch({type: ActionTypes.FETCH_GOOGLETRENDS, payload: JSON.parse(response)})}).catch(error => {
+        console.log(error);
+      })
+    }
+  }
 
 
 

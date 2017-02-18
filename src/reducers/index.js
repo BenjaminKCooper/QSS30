@@ -6,7 +6,7 @@ import CurrentTweetReducer from './currentTweetReducer';
 
 const rootReducer = combineReducers({
   data: DataReducer,
-  current: CurrentTweetReducer,
+  tweets: CurrentTweetReducer,
 });
 
 export default rootReducer;

@@ -6,6 +6,22 @@ body {
 }
 
 
+.dashMain {
+  
+}
+
+.test{
+  background: green;
+  display: flex;
+  flex-direction: column;
+}
+
+
+#viewButton {
+
+}
+
+
 #mainContent{
   display: flex;
   flex-direction: column;
@@ -20,21 +36,18 @@ button {
   border-radius: 5px;
 }
 
-.mainApp{
-  height: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  // justify-content: space-between;
-}
-
 .topBarHome{
   display: flex;
   background: red;
   justify-content: space-around;
 }
 
+#graphContainer{
+  width: 40%;
+}
+
 .mainPageCenter{
+  background: orange;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -63,11 +76,7 @@ button {
   justify-content: flex-end;
 
 }
-.test{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
+
 
 .navBarContainer {
   justify-content: flex-start;

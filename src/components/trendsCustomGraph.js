@@ -14,7 +14,7 @@ import {VictoryLine, VictoryLabel, VictoryAxis} from 'victory';
 
 
 // example class based component (smart component)
-class CustomGraph extends Component {
+class TrendsCustomGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -266,4 +266,4 @@ const mapStateToProps = (state) => (
   }
 );
 
-export default connect(mapStateToProps)(CustomGraph);
+export default connect(mapStateToProps)(TrendsCustomGraph);

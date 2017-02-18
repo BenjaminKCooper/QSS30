@@ -1,10 +1,10 @@
 import { ActionTypes } from '../actions';
 
-const CurrentTweetReducer = (state = { index: 0 }, action) => {
+const CurrentTweetReducer = (state = { googleData: [] }, action) => {
   switch (action.type) {
 
-    case ActionTypes.FETCH_CHINA:
-      return { index: action.payload };
+    case ActionTypes.FETCH_GOOGLETRENDS:
+      return { googleData: action.payload };
 
     default:
       return state;
