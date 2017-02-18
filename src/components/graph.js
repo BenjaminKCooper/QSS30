@@ -39,7 +39,7 @@ class DataGraph extends Component {
             data: {stroke: "#e95f46"}
           }}
 
-          x={(data)=>(new Date(data.Date.slice(0,8)))}
+          x={(data)=>(new Date(data.Date))}
           y="Value"
         />
 

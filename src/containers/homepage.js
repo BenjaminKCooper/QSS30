@@ -8,9 +8,10 @@ import { fetchchina, fetchdowjones, fetcheuro, fetchfox, fetchmexico, fetchnasda
 // example class based component (smart component)
 
 import DataGraph from '../components/graph'
+import CustomGraph from '../components/customGraph'
 
 
-import {Chip, Slider, MuiThemeProvider, CircularProgress} from 'material-ui';
+import {Chip, Slider, MuiThemeProvider, CircularProgress, Toggle, RaisedButton} from 'material-ui';
 
 
 class Homepage extends Component {
@@ -18,7 +19,7 @@ class Homepage extends Component {
     super(props);
 
     // init component state here
-    this.state = {tempSliderVal:0, finalSliderVal:0};
+    this.state = {tempSliderVal:0, finalSliderVal:0, viewToggle:"Graph"};
     // this.renderPosts = this.renderPosts.bind(this);
     this.onSliderMove = this.onSliderMove.bind(this);
     this.onSlideStop = this.onSlideStop.bind(this);
@@ -37,6 +38,7 @@ class Homepage extends Component {
     this.props.fetchtrump();
     this.props.fetchwsj();
   }
+
 
 
   renderPosts() {
@@ -62,8 +64,10 @@ renderMain() {
 
     return(
 <div>
-    <DataGraph marker={this.props.data.trump[this.state.tempSliderVal].created}/>
-
+  <MuiThemeProvider>
+    <RaisedButton label={this.state.viewToggle} />
+  </MuiThemeProvider>
+    <CustomGraph marker={this.props.data.trump[this.state.tempSliderVal].created} />
   <MuiThemeProvider>
     <Chip>{"Tweet Date: "+this.props.data.trump[this.state.tempSliderVal].created}</Chip>
   </MuiThemeProvider>
@@ -87,6 +91,7 @@ renderMain() {
   render() {
     return (
       <div className="mainPageCenter">
+
         <div id="mainContent">
           {this.renderMain()}
         </div>
