@@ -13,7 +13,7 @@ import CustomGraph from '../components/customGraph'
 import Dashboard from '../components/dashboardView'
 
 
-import {Chip, Slider, MuiThemeProvider, CircularProgress, Toggle, RaisedButton} from 'material-ui';
+import {Chip, Slider, MuiThemeProvider, CircularProgress, Toggle, RaisedButton, DropDownMenu, MenuItem} from 'material-ui';
 
 
 class Homepage extends Component {
@@ -21,10 +21,16 @@ class Homepage extends Component {
     super(props);
 
     // init component state here
-    this.state = {tempSliderVal:0, finalSliderVal:0, viewToggle:"Dashboard"};
-    // this.renderPosts = this.renderPosts.bind(this);
+    this.state = {tempSliderVal:0, finalSliderVal:0, viewToggle:"Graph", dropdownVal:1, dropdownText:"DowJones"};
+
     this.onSliderMove = this.onSliderMove.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.onNextClick = this.onNextClick.bind(this);
+    this.onPrevClick = this.onPrevClick.bind(this);
+    this.canSwitchTweetNext = this.canSwitchTweetNext.bind(this);
+    this.canSwitchTweetPrev = this.canSwitchTweetPrev.bind(this);
+    this.dropdownChange = this.dropdownChange.bind(this);
+
   }
 
   componentWillMount() {
@@ -59,11 +65,49 @@ onButtonClick(event) {
   }
 }
 
+dropdownChange(event, index, value) {
+  this.setState({dropdownVal:value})
+
+  let typeList = ["DowJones", "Chinese Yuan", "Mexican Peso", "The Euro", "The Pound"]
+  this.setState({dropdownText:typeList[index]})
+
+}
+
 onSliderMove(event, value) {
 
   this.setState({tempSliderVal: value});
 
 }
+
+onPrevClick(event) {
+  this.setState({tempSliderVal:this.state.tempSliderVal + 1})
+}
+
+
+onNextClick(event) {
+  this.setState({tempSliderVal:this.state.tempSliderVal - 1})
+}
+
+canSwitchTweetPrev() {
+  if ((this.state.tempSliderVal + 1 == (this.props.data.trump.length))){
+    return(true)
+
+  } else {
+    return(false)
+  }
+}
+
+canSwitchTweetNext(){
+  console.log(this.state.tempSliderVal)
+
+  if ((this.state.tempSliderVal - 1) < 0){
+    return(true)
+
+  } else {
+    return(false)
+  }
+}
+
 
 renderMain() {
   if (this.props.data.trump.length > 0) {
@@ -74,13 +118,34 @@ renderMain() {
     <MuiThemeProvider >
       <RaisedButton onTouchTap={this.onButtonClick} label={this.state.viewToggle} />
     </MuiThemeProvider>
-      <CustomGraph marker={this.props.data.trump[this.state.tempSliderVal].created} />
+    <MuiThemeProvider>
+      <Chip>{"Tweet Text: "+this.props.data.trump[this.state.tempSliderVal].label}</Chip>
+    </MuiThemeProvider>
+      <CustomGraph dataType={this.state.dropdownText} marker={this.props.data.trump[this.state.tempSliderVal].created} />
     <MuiThemeProvider>
       <Chip>{"Tweet Date: "+this.props.data.trump[this.state.tempSliderVal].created}</Chip>
     </MuiThemeProvider>
     <MuiThemeProvider>
     <Slider style={{width: 500}} axis="x-reverse" value={this.state.tempSliderVal} onDragStop={this.onSlideStop} onChange={this.onSliderMove} defaultValue={0} max={this.props.data.trump.length - 1} min={0} step={1} />
     </MuiThemeProvider>
+
+    <MuiThemeProvider >
+      <RaisedButton disabled={this.canSwitchTweetPrev()} onTouchTap={this.onPrevClick} label="Previous Tweet" />
+    </MuiThemeProvider>
+    <MuiThemeProvider >
+      <RaisedButton disabled={this.canSwitchTweetNext()} onTouchTap={this.onNextClick} label="Next Tweet" />
+    </MuiThemeProvider>
+
+    <MuiThemeProvider>
+      <DropDownMenu value={this.state.dropdownVal} onChange={this.dropdownChange}>
+          <MenuItem value={1} primaryText="DowJones" />
+          <MenuItem value={2} primaryText="Chinese Yuan" />
+          <MenuItem value={3} primaryText="Mexican Peso" />
+          <MenuItem value={4} primaryText="The Euro" />
+          <MenuItem value={5} primaryText="The Pound" />
+        </DropDownMenu>
+    </MuiThemeProvider>
+
   </div>
 
 
@@ -95,16 +160,21 @@ renderMain() {
           <MuiThemeProvider >
             <RaisedButton onTouchTap={this.onButtonClick} label={this.state.viewToggle} />
           </MuiThemeProvider>
+          <MuiThemeProvider>
+            <Chip>{"Tweet Text: "+this.props.data.trump[this.state.tempSliderVal].label}</Chip>
+          </MuiThemeProvider>
           <Dashboard index={this.state.tempSliderVal}/>
 
           <MuiThemeProvider>
             <Chip>{"Tweet Date: "+this.props.data.trump[this.state.tempSliderVal].created}</Chip>
           </MuiThemeProvider>
-          {/* <MuiThemeProvider>
-          <Slider style={{width: 500}} axis="x-reverse" value={this.state.tempSliderVal} onDragStop={this.onSlideStop} onChange={this.onSliderMove} defaultValue={0} max={this.props.data.trump.length - 1} min={0} step={1} />
-          </MuiThemeProvider> */}
 
-
+          <MuiThemeProvider >
+            <RaisedButton disabled={this.canSwitchTweetPrev()} onTouchTap={this.onPrevClick} label="Previous Tweet" />
+          </MuiThemeProvider>
+          <MuiThemeProvider >
+            <RaisedButton disabled={this.canSwitchTweetNext()} onTouchTap={this.onNextClick} label="Next Tweet" />
+          </MuiThemeProvider>
 
 
       </div>)

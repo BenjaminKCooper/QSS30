@@ -19,44 +19,15 @@ class CustomGraph extends Component {
     super(props);
     this.state = {};
 
+    this.getDataTypes=this.getDataTypes.bind(this);
+    this.getDomainX = this.getDomainX.bind(this);
+    this.getDomainY = this.getDomainY.bind(this);
+    this.getX = this.getX.bind(this);
+    this.getY = this.getY.bind(this);
   }
 
-    getDataSetOne() {
-      return [
-        {x: new Date(2000, 1, 1), y: 12},
-        {x: new Date(2000, 6, 1), y: 10},
-        {x: new Date(2000, 12, 1), y: 11},
-        {x: new Date(2001, 1, 1), y: 5},
-        {x: new Date(2002, 1, 1), y: 4},
-        {x: new Date(2003, 1, 1), y: 6},
-        {x: new Date(2004, 1, 1), y: 5},
-        {x: new Date(2005, 1, 1), y: 7},
-        {x: new Date(2006, 1, 1), y: 8},
-        {x: new Date(2007, 1, 1), y: 9},
-        {x: new Date(2008, 1, 1), y: -8.5},
-        {x: new Date(2009, 1, 1), y: -9},
-        {x: new Date(2010, 1, 1), y: 5},
-        {x: new Date(2013, 1, 1), y: 1},
-        {x: new Date(2014, 1, 1), y: 2},
-        {x: new Date(2015, 1, 1), y: -5}
-      ];
-    }
 
-    getDataSetTwo() {
-      return [
-        {x: new Date(2000, 1, 1), y: 5},
-        {x: new Date(2003, 1, 1), y: 6},
-        {x: new Date(2004, 1, 1), y: 4},
-        {x: new Date(2005, 1, 1), y: 10},
-        {x: new Date(2006, 1, 1), y: 12},
-        {x: new Date(2007, 2, 1), y: 48},
-        {x: new Date(2008, 1, 1), y: 19},
-        {x: new Date(2009, 1, 1), y: 31},
-        {x: new Date(2011, 1, 1), y: 49},
-        {x: new Date(2014, 1, 1), y: 40},
-        {x: new Date(2015, 1, 1), y: 21}
-      ];
-    }
+
 
     getTickValues() {
       return [
@@ -181,14 +152,82 @@ class CustomGraph extends Component {
 
 
 
+      getDataTypes(){
 
+        console.log(this.props.dataType)
+
+        if (this.props.dataType == "The Pound") {
+          return(this.props.data.pound);
+        } else if (this.props.dataType == "Chinese Yuan"){
+          return(this.props.data.china);
+        } else if (this.props.dataType == "Mexican Peso") {
+          return(this.props.data.mexico);
+        } else if (this.props.dataType == "The Euro") {
+          return(this.props.data.euro);
+        } else {
+          return(this.props.data.dowJones);
+        }
+
+      }
+
+  getDomainX() {
+
+    if (this.props.dataType == "The Pound") {
+      return(0);
+    } else if (this.props.dataType == "Chinese Yuan"){
+      return(0);
+    } else if (this.props.dataType == "Mexican Peso") {
+      return(0);
+    } else if (this.props.dataType == "The Euro") {
+      return(0);
+    } else {
+      return(8000);
+    }
+
+  }
+
+
+  getDomainY() {
+
+    if (this.props.dataType == "The Pound") {
+      return(3);
+    } else if (this.props.dataType == "Chinese Yuan"){
+      return(20);
+    } else if (this.props.dataType == "Mexican Peso") {
+      return(40);
+    } else if (this.props.dataType == "The Euro") {
+      return(3);
+    } else {
+      return(20000);
+    }
+
+  }
+
+
+  getX() {
+
+    if (this.props.dataType == "DowJones") {
+      return((data)=>(new Date(data.Date)));
+    } else {
+      return((data)=>(new Date(data.DATE)));
+    }
+
+  }
+
+  getY() {
+
+    if (this.props.dataType == "DowJones") {
+      return("Value");
+    } else {
+      return("RATE");
+    }
+  }
 
   render() {
     const styles = this.getStyles() ;
 
     const tickValues = this.getTickValues();
     return(
-
 
       <svg style={styles.parent} viewBox="0 0 450 350">
 
@@ -202,7 +241,7 @@ class CustomGraph extends Component {
               />
               <VictoryLabel x={430} y={20} style={styles.labelNumber}
                 text="1"
-              />
+/>
               <VictoryLabel x={25} y={55} style={styles.labelOne}
                 text={"Economy \n % change on a year earlier"}
               />
@@ -212,12 +251,10 @@ class CustomGraph extends Component {
 
               <g transform={"translate(0, 40)"}>
 
-
-                {/* Red annotation line */}
                 <VictoryLine
                   data={[
-                    {y:8000 , x: new Date(this.props.marker)},
-                    {y: 20000, x: new Date(this.props.marker)}
+                    {y:this.getDomainX() , x: new Date(this.props.marker)},
+                    {y: this.getDomainY(), x: new Date(this.props.marker)}
                   ]}
                   domain={{
                     x: [new Date(2009, 1, 1), new Date()] }}
@@ -226,20 +263,20 @@ class CustomGraph extends Component {
                 />
 
                 <VictoryLine
-                data={this.props.data.dowJones}
+                data={this.getDataTypes()}
                 style={{
                   data: {stroke: "#e95f46"}
                 }}
                 domain={{
                   x: [new Date(2009, 1, 1), new Date()],
-                  y: [8000, 18000]
+                  y: [this.getDomainX(), this.getDomainY()]
                 }}
 
                 style={styles.lineOne}
                 standalone={false}
 
-                x={(data)=>(new Date(data.Date))}
-                y="Value"
+                x= {this.getX()} //{(data)=>(new Date(data.Date))}
+                y= {this.getY()} //"Value"
               />
 
                 {/*

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import AppBar from 'material-ui/AppBar';
-import {MuiThemeProvider, TextField, RaisedButton} from 'material-ui';
+import {MuiThemeProvider, TextField, RaisedButton, SelectField} from 'material-ui';
 
 import {VictoryLine, VictoryLabel, VictoryAxis} from 'victory';
 import { fetchGoogleTrends } from '../actions/index';
@@ -18,15 +18,16 @@ import TrendsCustomGraph from '../components/trendsCustomGraph'
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {searchText:"", dropDownVal:""};
     this.searchGoogle=this.searchGoogle.bind(this);
+    this.onTextChange=this.onTextChange.bind(this);
 
   }
 
 
   searchGoogle(){
 
-    this.props.fetchGoogleTrends("trump", this.props.data.trump[this.props.index].created);
+    this.props.fetchGoogleTrends(this.state.searchText, this.props.data.trump[this.props.index].created);
 
     console.log(this.props.data.trump)
 
@@ -34,14 +35,16 @@ class Dashboard extends Component {
   }
 
   onTextChange(event, value) {
+    this.setState({searchText:value})
     console.log(value)
   }
 
   renderGoogleData(){
     console.log(this.props.tweets)
     if (!Array.isArray(this.props.tweets.googleData)) {
-      console.log(this.props.tweets.googleData)
-      return(<div>{this.props.tweets.googleData.default.timelineData[0].value[0]}</div>)
+      console.log(this.props.data.trump[this.props.index].created)
+      // return(<div>{this.props.tweets.googleData.default.timelineData[0].value[0]}</div>)
+      return(<div><TrendsCustomGraph data={this.props.tweets.googleData.default.timelineData} marker={this.props.data.trump[this.props.index].created}/></div>)
     } else {
       return(<div></div>)
     }
@@ -58,12 +61,10 @@ class Dashboard extends Component {
     return(
 
       <div className="dashMain">
-        <h>{"Tweet: "+this.props.data.trump[this.props.index].label}</h>
+
         <MuiThemeProvider>
           <TextField onChange={this.onTextChange} hintText="Search Google Trends" />
         </MuiThemeProvider>
-
-
 
         <button onClick={this.searchGoogle}>Search Google</button>
         {this.renderGoogleData()}

@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import {VictoryLine, VictoryLabel, VictoryAxis} from 'victory';
+import {VictoryLine, VictoryLabel, VictoryAxis, VictoryBar} from 'victory';
 
 
 
@@ -18,45 +18,8 @@ class TrendsCustomGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-
+    console.log(this.props.data)
   }
-
-    getDataSetOne() {
-      return [
-        {x: new Date(2000, 1, 1), y: 12},
-        {x: new Date(2000, 6, 1), y: 10},
-        {x: new Date(2000, 12, 1), y: 11},
-        {x: new Date(2001, 1, 1), y: 5},
-        {x: new Date(2002, 1, 1), y: 4},
-        {x: new Date(2003, 1, 1), y: 6},
-        {x: new Date(2004, 1, 1), y: 5},
-        {x: new Date(2005, 1, 1), y: 7},
-        {x: new Date(2006, 1, 1), y: 8},
-        {x: new Date(2007, 1, 1), y: 9},
-        {x: new Date(2008, 1, 1), y: -8.5},
-        {x: new Date(2009, 1, 1), y: -9},
-        {x: new Date(2010, 1, 1), y: 5},
-        {x: new Date(2013, 1, 1), y: 1},
-        {x: new Date(2014, 1, 1), y: 2},
-        {x: new Date(2015, 1, 1), y: -5}
-      ];
-    }
-
-    getDataSetTwo() {
-      return [
-        {x: new Date(2000, 1, 1), y: 5},
-        {x: new Date(2003, 1, 1), y: 6},
-        {x: new Date(2004, 1, 1), y: 4},
-        {x: new Date(2005, 1, 1), y: 10},
-        {x: new Date(2006, 1, 1), y: 12},
-        {x: new Date(2007, 2, 1), y: 48},
-        {x: new Date(2008, 1, 1), y: 19},
-        {x: new Date(2009, 1, 1), y: 31},
-        {x: new Date(2011, 1, 1), y: 49},
-        {x: new Date(2014, 1, 1), y: 40},
-        {x: new Date(2015, 1, 1), y: 21}
-      ];
-    }
 
     getTickValues() {
       return [
@@ -174,7 +137,7 @@ class TrendsCustomGraph extends Component {
 
         // HORIZONTAL LINE
         lineThree: {
-          data: { stroke: "#e95f46", strokeWidth: 2 }
+          data: { stroke: "#e95f46", strokeWidth: 1 }
         }
       };
     }
@@ -214,38 +177,28 @@ class TrendsCustomGraph extends Component {
 
 
                 {/* Red annotation line */}
-                <VictoryLine
-                  data={[
-                    {y:8000 , x: new Date(this.props.marker)},
-                    {y: 20000, x: new Date(this.props.marker)}
-                  ]}
-                  domain={{
-                    x: [new Date(2009, 1, 1), new Date()] }}
-                  standalone={false}
-                  style={styles.lineThree}
-                />
 
-                <VictoryLine
-                data={this.props.data.dowJones}
-                style={{
-                  data: {stroke: "#e95f46"}
-                }}
-                domain={{
-                  x: [new Date(2009, 1, 1), new Date()],
-                  y: [8000, 18000]
-                }}
 
-                style={styles.lineOne}
+                <VictoryBar
+                data={this.props.data}
                 standalone={false}
 
-                x={(data)=>(new Date(data.Date))}
-                y="Value"
+                domain={{
+                  x: [new Date(this.props.data[0].formattedTime.replace("at ", "")), new Date(this.props.data[179].formattedTime.replace("at ", ""))] }}
+
+                x={(datum)=>(new Date(datum.formattedTime.replace("at ", "")))}
+                y={(datum)=>(datum.value[0])}
               />
 
-                {/*
-                  Add the dependent axis for the second data set.
-                  Note that all components plotted against this axis will have the same y domain
-                */}
+              <VictoryBar
+                data={[
+                  {y:100 , x: new Date(this.props.marker)}
+                ]}
+                domain={{
+                  x: [new Date(this.props.data[0].formattedTime.replace("at ", "")), new Date(this.props.data[179].formattedTime.replace("at ", ""))] }}
+                standalone={false}
+                style={styles.lineThree}
+              />
 
               </g>
             </svg>
@@ -259,11 +212,4 @@ class TrendsCustomGraph extends Component {
 }
 
 
-
-const mapStateToProps = (state) => (
-  {
-    data: state.data,
-  }
-);
-
-export default connect(mapStateToProps)(TrendsCustomGraph);
+export default TrendsCustomGraph;

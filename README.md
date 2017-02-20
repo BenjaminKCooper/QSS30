@@ -447,3 +447,10 @@ Outside Lit:
   );
 
   export default connect(mapStateToProps)(CustomGraph);
+
+
+
+
+
+
+  "dev": "open -a Google\ Chrome --args --disable-web-security --user-data-dir && npm start"

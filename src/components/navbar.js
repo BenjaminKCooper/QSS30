@@ -17,7 +17,7 @@ class NavBar extends Component {
     return (
       <div className="topBarHome">
         <MuiThemeProvider>
-          <AppBar />
+          <AppBar showMenuIconButton={false} title={"QSS 30.07 Final Project | Ben Cooper | The Influence of Donald Trump's Tweets"} />
         </MuiThemeProvider>
       </div>
     );

@@ -32,6 +32,8 @@ export function fetchGoogleTrends(phrase, date){
 
   var currentDate = new Date(date);
 
+  console.log(phrase)
+
 
   return (dispatch) => {
     googleTrends.interestOverTime({keyword: phrase, startTime: prevDay, endTime: nextDate}).then(response => {
