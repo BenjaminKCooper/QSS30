@@ -98,7 +98,6 @@ canSwitchTweetPrev() {
 }
 
 canSwitchTweetNext(){
-  console.log(this.state.tempSliderVal)
 
   if ((this.state.tempSliderVal - 1) < 0){
     return(true)

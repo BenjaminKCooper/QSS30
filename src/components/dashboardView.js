@@ -29,20 +29,16 @@ class Dashboard extends Component {
 
     this.props.fetchGoogleTrends(this.state.searchText, this.props.data.trump[this.props.index].created);
 
-    console.log(this.props.data.trump)
 
 
   }
 
   onTextChange(event, value) {
     this.setState({searchText:value})
-    console.log(value)
   }
 
   renderGoogleData(){
-    console.log(this.props.tweets)
     if (!Array.isArray(this.props.tweets.googleData)) {
-      console.log(this.props.data.trump[this.props.index].created)
       // return(<div>{this.props.tweets.googleData.default.timelineData[0].value[0]}</div>)
       return(<div><TrendsCustomGraph data={this.props.tweets.googleData.default.timelineData} marker={this.props.data.trump[this.props.index].created}/></div>)
     } else {
@@ -65,6 +61,8 @@ class Dashboard extends Component {
         <MuiThemeProvider>
           <TextField onChange={this.onTextChange} hintText="Search Google Trends" />
         </MuiThemeProvider>
+        <div>{"Retweets: " + this.props.data.trump[this.props.index].retweetCount}</div>
+        <div>{"Favorited Count: " + this.props.data.trump[this.props.index].favoriteCount}</div>
 
         <button onClick={this.searchGoogle}>Search Google</button>
         {this.renderGoogleData()}

@@ -18,7 +18,6 @@ class TrendsCustomGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    console.log(this.props.data)
   }
 
     getTickValues() {
@@ -155,29 +154,7 @@ class TrendsCustomGraph extends Component {
 
       <svg style={styles.parent} viewBox="0 0 450 350">
 
-              {/* Create stylistic elements */}
-              <rect x="0" y="0" width="10" height="30" fill="#f01616"/>
-              <rect x="420" y="10" width="20" height="20" fill="#458ca8"/>
-
-              {/* Define labels */}
-              <VictoryLabel x={25} y={24} style={styles.title}
-                text="An outlook"
-              />
-              <VictoryLabel x={430} y={20} style={styles.labelNumber}
-                text="1"
-              />
-              <VictoryLabel x={25} y={55} style={styles.labelOne}
-                text={"Economy \n % change on a year earlier"}
-              />
-              <VictoryLabel x={425} y={55} style={styles.labelTwo}
-                text={"Dinosaur exports\n $bn"}
-              />
-
               <g transform={"translate(0, 40)"}>
-
-
-                {/* Red annotation line */}
-
 
                 <VictoryBar
                 data={this.props.data}
@@ -190,15 +167,6 @@ class TrendsCustomGraph extends Component {
                 y={(datum)=>(datum.value[0])}
               />
 
-              <VictoryBar
-                data={[
-                  {y:100 , x: new Date(this.props.marker)}
-                ]}
-                domain={{
-                  x: [new Date(this.props.data[0].formattedTime.replace("at ", "")), new Date(this.props.data[179].formattedTime.replace("at ", ""))] }}
-                standalone={false}
-                style={styles.lineThree}
-              />
 
               </g>
             </svg>

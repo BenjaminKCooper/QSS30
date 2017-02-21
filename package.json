@@ -1,7 +1,7 @@
 {
   "name": "js-react-starter",
   "version": "1.0.0",
-  "description": "",
+  "description": "Website model compoent to QSS 30.07 final project.  Built the site using a starter from CS52 (https://github.com/BenjaminKCooper/Homework-4-p1)",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified.\"",

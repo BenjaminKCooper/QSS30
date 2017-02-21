@@ -27,24 +27,6 @@ const dataReducer = (state = { china: [], dowJones: [], euro: [], fox:[], mexico
       return { china: state.china, dowJones: state.dowJones, euro: state.euro, fox:state.fox, mexico:state.mexico, nasdaq:state.nasdaq, npr:state.npr, nyt:state.nyt, pound:state.pound, trump:state.trump, wsj:action.payload };
 
 
-
-    //
-    // case ActionTypes.FETCH_POSTS:
-    //   return { all: action.payload, post: state.post };
-    // case ActionTypes.FETCH_POST:
-    //   return { all: state.all, post: action.payload };
-
-
-
-
-
-
-    // case ActionTypes.CREATE_POST:
-    //   return;
-    // case ActionTypes.UPDATE_POST:
-    //   return;
-    // case ActionTypes.DELETE_POST:
-    //   return;
     default:
       return state;
   }
